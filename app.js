@@ -1,12 +1,16 @@
 const searchSong = () => {
-    const searchText = document.getElementById("search-field").value;
+   
+    const searchText = document.getElementById("search-field").value; 
     const url = `https://api.lyrics.ovh/suggest/:${searchText}`;
+    document.getElementById("search-field").value = ""; 
+    toggleSpinner();
     fetch(url)
         .then(res => res.json())
         .then(data => getSongs(data.data))
 };
 
 const getSongs = (songs) => {
+    toggleSpinner();
     document.getElementById("single-container").innerText = "";
     const singleContainer = document.getElementById("single-container");
     songs.forEach(song => {
@@ -25,6 +29,8 @@ const getSongs = (songs) => {
                             </div>
                             `;
         singleContainer.appendChild(songDiv);
+        
+        
         console.log(song);
     });
 };
@@ -39,6 +45,16 @@ const getLyric = (artist, title) => {
 
 const getSingleSongLyric = (lyric) => {
     const songLyric = document.getElementById("song-lyric");
-    songLyric.innerText = lyric;
-    console.log(songLyric);
+    songLyric.innerText = lyric; 
 }
+ 
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById("load-spinner");
+    const singleContainer = document.getElementById("single-container");
+    const singleSong = document.getElementById("song-lyric");
+    spinner.classList.toggle("d-none");
+    singleContainer.classList.toggle("d-none");
+    singleSong.classList.toggle("d-none");
+}
+ 
