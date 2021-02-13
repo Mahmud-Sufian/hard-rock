@@ -9,6 +9,24 @@ const searchSong = () => {
         .then(data => getSongs(data.data))
 };
 
+// document.getElementById("btn").addEventListener("click", function(){
+//      const searchText = document.getElementById("search-field").value; 
+//     const url = `https://api.lyrics.ovh/suggest/:${searchText}`;
+//     document.getElementById("search-field").value = ""; 
+//     toggleSpinner();
+//     fetch(url)
+//         .then(res => res.json())
+//         .then(data => getSongs(data.data))
+// })
+
+document.getElementById("search-field")
+    .addEventListener("keypress", function(event) {
+     
+    if (event.key === 'Enter') {
+        document.getElementById("btn").click();
+    }
+});
+
 const getSongs = (songs) => {
     toggleSpinner();
     document.getElementById("single-container").innerText = "";
